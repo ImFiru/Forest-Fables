@@ -25,3 +25,12 @@ Added input handling to allow the user to control the movement of the rectangle,
 - Main Class:
   - Game
   - GamePanel
+
+## [v0.1.2] - 28/04/2024
+ 
+Added the game loop and fps counter to the game. Made so the rectangles now move until they touch the edges of the screen and change directions, and spawn more with the user input.
+ 
+### Changed
+- Main Class:
+  - Game
+  - GamePanel

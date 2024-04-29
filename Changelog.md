@@ -71,3 +71,18 @@ Updated the game loop so now it has a diferent logic to update the game instead 
 - Main Class:
   - Game
   - GamePanel
+
+## [v0.1.6] - 29/04/2024
+ 
+Created the player class and organized the code. Changed the direction control of the player to boolean values. Fixed problems when the window loses focus.
+
+### Added
+- Entities Class:
+  - Entity
+  - Player
+### Changed
+- Main Class:
+  - Game
+  - GamePanel
+- Inputs Class:
+  - KeyboardInputs

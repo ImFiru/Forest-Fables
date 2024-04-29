@@ -48,3 +48,17 @@ Added images to the game. For that i created a res folder where all the images w
   - GamePanel
 - Inputs Class:
   - MouseInputs
+
+## [v0.1.4] - 28/04/2024
+ 
+Added animations to the game. Updated and created some methods to work with the animations.
+
+### Added
+- Utilz Class:
+  - Constants
+### Changed
+- Main Class:
+  - GamePanel
+- Inputs Class:
+  - MouseInputs
+  - KeyboardInputs

@@ -105,3 +105,18 @@ Created the level creation classes and add the sprites for the tiles and level d
   - Player
 - Utilz Class:
   - LoadSave
+
+## [v0.1.8] - 29/04/2024
+ 
+Added collisions to the player, and fixed the problem with the player clipping trough the tiles when he is bigger than the tile size.
+
+### Added
+- Utilz Class:
+  - HelpMethods
+### Changed
+- Levels Class:
+  - LevelManager
+  - Level
+- Entities Class:
+  - Entity
+  - Player

@@ -34,3 +34,17 @@ Added the game loop and fps counter to the game. Made so the rectangles now move
 - Main Class:
   - Game
   - GamePanel
+
+## [v0.1.3] - 28/04/2024
+ 
+Added images to the game. For that i created a res folder where all the images will be saved.
+
+### Added
+- Res Folder:
+  - player_animations.png
+### Changed
+- Main Class:
+  - GameWindow
+  - GamePanel
+- Inputs Class:
+  - MouseInputs

@@ -2,12 +2,11 @@ package entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
 
-import static utilz.Constants.Directions.*;
+import utilz.LoadSave;
+
 import static utilz.Constants.PlayerConstants.*;
+import static utilz.LoadSave.*;
 
 public class Player extends Entity {
 
@@ -91,10 +90,7 @@ public class Player extends Entity {
 	}
 
     private void loadAnimations() {
-
-        InputStream is = getClass().getResourceAsStream("/entities/player/player_animations.png");
-		try {
-			BufferedImage image = ImageIO.read(is);
+			BufferedImage image = LoadSave.getSpriteAtlas(PLAYER_ATLAS);
             playerAnimations = new BufferedImage[15][12];
 
 		    for (int j = 0; j < playerAnimations.length; j++) {
@@ -102,9 +98,6 @@ public class Player extends Entity {
                     playerAnimations[j][i] = image.getSubimage(i * 56, j * 56, 56, 56);
                 }
             }
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
     public void resetDirectionBooleans() {

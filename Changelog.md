@@ -86,3 +86,22 @@ Created the player class and organized the code. Changed the direction control o
   - GamePanel
 - Inputs Class:
   - KeyboardInputs
+
+## [v0.1.7] - 29/04/2024
+ 
+Created the level creation classes and add the sprites for the tiles and level data, and cleaned up the code.
+
+### Added
+- Levels Class:
+  - Level
+  - LevelManager
+- Utilz Class:
+  - LoadSave
+### Changed
+- Main Class:
+  - Game
+  - GamePanel
+- Entities Class:
+  - Player
+- Utilz Class:
+  - LoadSave

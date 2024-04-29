@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Toolkit;
+
 public class Game implements Runnable {
 
 	private GameWindow gameWindow;
@@ -36,6 +38,7 @@ public class Game implements Runnable {
 			now = System.nanoTime();
 			if (now - lastFrame >= timePerFrame) {
 				gamePanel.repaint();
+				Toolkit.getDefaultToolkit().sync();
 				lastFrame = now;
 				frames++;
 			}

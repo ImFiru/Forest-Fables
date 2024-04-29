@@ -62,3 +62,12 @@ Added animations to the game. Updated and created some methods to work with the 
 - Inputs Class:
   - MouseInputs
   - KeyboardInputs
+
+## [v0.1.5] - 29/04/2024
+ 
+Updated the game loop so now it has a diferent logic to update the game instead of using the render section.
+
+### Changed
+- Main Class:
+  - Game
+  - GamePanel

@@ -1,6 +1,19 @@
 package utilz;
 
+import main.Game;
+
 public class Constants {
+
+  public static class UI{
+
+    public static class Buttons{
+
+      public static final int BUTTON_WIDTH_DEFAULT = 160;
+      public static final int BUTTON_HEIGHT_DEFAULT = 80;
+      public static final int BUTTON_WIDTH = (int) (BUTTON_WIDTH_DEFAULT * Game.SCALE) / 2;
+      public static final int BUTTON_HEIGHT = (int) (BUTTON_HEIGHT_DEFAULT * Game.SCALE) / 2;
+    }
+  }
 
   public static class Directions {
 

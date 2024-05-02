@@ -4,6 +4,8 @@ import main.Game;
 
 import static main.Game.*;
 
+import java.awt.geom.Rectangle2D;
+
 public class HelpMethods {
 
 	public static boolean canMoveHere(float x, float y, float width, float height, int[][] levelData) {
@@ -52,5 +54,56 @@ public class HelpMethods {
 		if (value > 198 || value < 0 || value != 0)
 			return true;
 		return false;
+	}
+
+    public static float getEntityXPositionNextToWall(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
+        float x = hitbox.x;
+        float width = hitbox.width;
+        float height = hitbox.height;
+        float y = hitbox.y;
+    
+        // Check if the entity is moving to the right
+        if (xSpeed > 0) {
+            // Cast a vector from the entity's top-right corner to the bottom-right corner
+            if (castVector(x + width, y, x + width, y + height, lvlData)) {
+                // If a collision is detected, move the entity back to the nearest tile boundary
+                return ((int) (x + width)) / TILES_SIZE * TILES_SIZE - width;
+            }
+        }
+        // Check if the entity is moving to the left
+        else if (xSpeed < 0) {
+            // Cast a vector from the entity's top-left corner to the bottom-left corner
+            if (castVector(x, y, x, y + height, lvlData)) {
+                // If a collision is detected, move the entity to the nearest tile boundary
+                return ((int) x) / TILES_SIZE * TILES_SIZE + TILES_SIZE;
+            }
+        }
+    
+        // If no collision is detected, return the original x position
+        return x;
+    }
+
+    public static float getEntityYPositionUnderRoofOrAboveFloor(Rectangle2D.Float hitbox, float airSpeed) {
+		int currentTile = (int) (hitbox.y / Game.TILES_SIZE);
+		if (airSpeed > 0) {
+			// Falling - touching floor
+			int tileYPos = currentTile * Game.TILES_SIZE;
+			int yOffset = (int) (2 * Game.TILES_SIZE - hitbox.height);
+			return tileYPos + yOffset - 1;
+		} else
+			// Jumping
+			return currentTile * Game.TILES_SIZE;
+
+	}
+
+
+    public static boolean isEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
+		// Check the pixel below bottomleft and bottomright
+		if (!isSolid(hitbox.x, hitbox.y + hitbox.height + 1, lvlData))
+			if (!isSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData))
+				return false;
+
+		return true;
+
 	}
 }

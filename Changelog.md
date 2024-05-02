@@ -120,3 +120,23 @@ Added collisions to the player, and fixed the problem with the player clipping t
 - Entities Class:
   - Entity
   - Player
+
+## [v0.1.9] - 29/04/2024
+ 
+Added gamestates to the game. And added 3 buttons to the menu to swich between gamestates.
+
+### Added
+- UI Class:
+  - MenuButton
+- Gamestates Class:
+  - GameState
+  - Menu
+  - Playing
+  - State
+  - StateMethods
+### Changed
+- Inputs Class:
+  - MouseInputs
+  - KeyboardInputs
+- Main Class:
+  - Game

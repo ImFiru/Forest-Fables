@@ -3,8 +3,9 @@ package main;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
-import entities.Player;
-import levels.LevelManager;
+import gamestates.GameState;
+import gamestates.Menu;
+import gamestates.Playing;
 
 public class Game implements Runnable {
 
@@ -14,8 +15,8 @@ public class Game implements Runnable {
 	private final int FPS_SET = 120;
 	private final int UPS_SET = 200;
 
-	private Player player;
-	private LevelManager levelManager;
+	private Menu menu;
+	private Playing playing;
 
 	public final static int TILES_DEFAULT_SIZE = 24;
 	public final static float SCALE = 2f; 
@@ -36,9 +37,8 @@ public class Game implements Runnable {
 	}
 
 	private void initClasses() {
-		levelManager = new LevelManager(this);
-		player = new Player(100, 100, (int)( 56 * Game.SCALE), (int)( 56 * Game.SCALE));
-		player.loadLevelData(levelManager.getCurrentLevel().getLevelData());
+		menu = new Menu(this);
+		playing = new Playing(this);
 	}
 
 	private void startGameLoop() {
@@ -47,13 +47,35 @@ public class Game implements Runnable {
 	}
 
 	private void update() {
-		player.update();
-		levelManager.update();
+		
+		switch (GameState.gamestate) {
+			case MENU:
+				menu.update();
+				break;
+			case PLAYING:
+				playing.update();
+				break;
+			case OPTIONS:
+			case QUIT:
+				System.exit(0);
+				break;
+			default:
+				break;
+		}
 	}
 
 	public void render(Graphics g) {
-		levelManager.draw(g);
-		player.render(g);
+
+		switch (GameState.gamestate) {
+			case MENU:
+				menu.draw(g);
+				break;
+			case PLAYING:
+				playing.draw(g);
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override
@@ -103,11 +125,17 @@ public class Game implements Runnable {
 	}
 
 	public void windowFocusLost() {
-		player.resetDirectionBooleans();
+		if (GameState.gamestate == GameState.PLAYING){
+			playing.windowFocusLost();
+		}
 	}
 
-	public Player getPlayer() {
-		return player;
+	public Menu getMenu() {
+		return menu;
 	}
+
+    public Playing getPlaying() {
+		return playing;
+    }
 
 }

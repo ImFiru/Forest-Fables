@@ -4,15 +4,39 @@ import main.Game;
 
 public class Constants {
 
+  public static class Environment {
+    public static final int LAYER_2_WIDTH_DEFAULT = 320;
+    public static final int LAYER_2_HEIGHT_DEFAULT = 180;
+    public static final int LAYER_3_WIDTH_DEFAULT = 320;
+    public static final int LAYER_3_HEIGHT_DEFAULT = 180;
+
+    public static final int LAYER_2_WIDTH = (int) (LAYER_2_WIDTH_DEFAULT * Game.SCALE);
+    public static final int LAYER_2_HEIGHT = (int) (LAYER_2_HEIGHT_DEFAULT * Game.SCALE);
+    public static final int LAYER_3_WIDTH = (int) (LAYER_3_WIDTH_DEFAULT * Game.SCALE);
+    public static final int LAYER_3_HEIGHT = (int) (LAYER_3_HEIGHT_DEFAULT * Game.SCALE);
+    
+  }
+
   public static class UI{
 
-    public static class Buttons{
+    public static class Buttons {
+			public static final int BUTTON_WIDTH_DEFAULT = 64;
+			public static final int BUTTON_HEIGHT_DEFAULT = 16;
+			public static final int BUTTON_WIDTH = (int) (2 * BUTTON_WIDTH_DEFAULT * Game.SCALE);
+			public static final int BUTTON_HEIGHT = (int) (2 * BUTTON_HEIGHT_DEFAULT * Game.SCALE);
+		}
 
-      public static final int BUTTON_WIDTH_DEFAULT = 160;
-      public static final int BUTTON_HEIGHT_DEFAULT = 80;
-      public static final int BUTTON_WIDTH = (int) (BUTTON_WIDTH_DEFAULT * Game.SCALE) / 2;
-      public static final int BUTTON_HEIGHT = (int) (BUTTON_HEIGHT_DEFAULT * Game.SCALE) / 2;
+    public static class VolumeButtons {
+      public static final int VOLUME_WIDTH_DEFAULT = 5;
+      public static final int VOLUME_HEIGHT_DEFAULT = 16;
+      public static final int SLIDER_WIDTH_DEFAULT = 62;
+      public static final int SLIDER_HEIGHT_DEFAULT = 16;
+      public static final int VOLUME_WIDTH = (int) (2 * VOLUME_WIDTH_DEFAULT * Game.SCALE);
+      public static final int VOLUME_HEIGHT = (int) (2 * VOLUME_HEIGHT_DEFAULT * Game.SCALE);
+      public static final int SLIDER_WIDTH = (int) (2 * SLIDER_WIDTH_DEFAULT * Game.SCALE);
+      public static final int SLIDER_HEIGHT = (int) (2 * SLIDER_HEIGHT_DEFAULT * Game.SCALE);
     }
+
   }
 
   public static class Directions {
@@ -40,6 +64,7 @@ public class Constants {
     public static final int DAMAGE = 12;
     public static final int DEAD = 13;
     public static final int WALL_SLIDING = 14;
+    public static final int JUMP_ATTACKING = 15;
 
     public static int getSpriteAmount(int player_action) {
       switch (player_action) {
@@ -65,6 +90,8 @@ public class Constants {
           return 3;
         case WALKING:
           return 10;
+        case JUMP_ATTACKING:
+          return 5;
         default:
           return 1;
       }

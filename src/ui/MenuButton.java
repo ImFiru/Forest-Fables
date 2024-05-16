@@ -11,19 +11,16 @@ import static utilz.Constants.UI.Buttons.*;
 
 public class MenuButton {
 
-    private int xPosition, yPosition, rowIndex, index;
+    private int xPosition, yPositon, rowIndex, index;
     private int xOffsetCenter = BUTTON_WIDTH / 2;
     private GameState gameState;
-
-    private BufferedImage[] images;
-
+    private BufferedImage[] buttonImages;
     private boolean mouseOver, mousePressed;
-
     private Rectangle bounds;
-    
-    public MenuButton(int xPosition, int yPosition, int rowIndex, GameState gameState) {
+
+    public MenuButton(int xPosition, int yPositon, int rowIndex, GameState gameState) {
         this.xPosition = xPosition;
-        this.yPosition = yPosition;
+        this.yPositon = yPositon;
         this.rowIndex = rowIndex;
         this.gameState = gameState;
         loadImages();
@@ -31,32 +28,35 @@ public class MenuButton {
     }
 
     private void initBounds() {
-        bounds = new Rectangle(xPosition - xOffsetCenter, yPosition, BUTTON_WIDTH, BUTTON_HEIGHT);
+        bounds = new Rectangle(xPosition - xOffsetCenter, yPositon, BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
     private void loadImages() {
-        images = new BufferedImage[3];
-        BufferedImage image = LoadSave.getSpriteAtlas(LoadSave.MENU_BUTTONS);
+        buttonImages = new BufferedImage[3];
+        BufferedImage tempImage = LoadSave.getSpriteAtlas(LoadSave.MENU_BUTTONS);
 
-        for (int i = 0; i < images.length; i++) {
-            images[i] = image.getSubimage(i * BUTTON_WIDTH_DEFAULT, rowIndex * BUTTON_HEIGHT_DEFAULT, BUTTON_WIDTH_DEFAULT, BUTTON_HEIGHT_DEFAULT);
+        for (int i = 0; i < buttonImages.length; i++) {
+            buttonImages[i] = tempImage.getSubimage(i * BUTTON_WIDTH_DEFAULT, rowIndex * BUTTON_HEIGHT_DEFAULT, BUTTON_WIDTH_DEFAULT, BUTTON_HEIGHT_DEFAULT);
         }
     }
 
     public void draw(Graphics g) {
-        g.drawImage(images[index], xPosition - xOffsetCenter, yPosition, BUTTON_WIDTH, BUTTON_HEIGHT, null);
+        g.drawImage(buttonImages[index], xPosition - xOffsetCenter, yPositon, BUTTON_WIDTH, BUTTON_HEIGHT, null);
     }
 
     public void update() {
         index = 0;
-        if (mouseOver) {
+        if (mouseOver){
             index = 1;
-        }
-        if (mousePressed) {
+        } 
+        if (mousePressed){
             index = 2;
         }
     }
 
+    public Rectangle getBounds() {
+        return bounds;
+    }
     public boolean isMouseOver() {
         return mouseOver;
     }
@@ -73,10 +73,6 @@ public class MenuButton {
         this.mousePressed = mousePressed;
     }
 
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
     public void applyGameState() {
         GameState.gamestate = gameState;
     }
@@ -85,6 +81,4 @@ public class MenuButton {
         mouseOver = false;
         mousePressed = false;
     }
-
-    
 }

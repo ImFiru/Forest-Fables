@@ -1,36 +1,42 @@
 package main;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-
 import javax.swing.JFrame;
 
 public class GameWindow {
-	private JFrame jframe;
 
-	public GameWindow(GamePanel gamePanel) {
+    private static JFrame jframe;
 
-		jframe = new JFrame();
+    public GameWindow(GamePanel gamePanel) {
+        jframe = new JFrame();
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.add(gamePanel);
+        jframe.setResizable(false);
+        jframe.pack();
 
-		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jframe.add(gamePanel);
-		jframe.setLocationRelativeTo(null);
-		jframe.setResizable(false);
-		jframe.pack();
-		jframe.setVisible(true);
-		jframe.addWindowFocusListener(new WindowFocusListener() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width - jframe.getWidth()) / 2;
+        int centerY = (screenSize.height - jframe.getHeight()) / 2;
 
-			@Override
-			public void windowGainedFocus(WindowEvent arg0) {
-			}
+        jframe.setLocation(centerX, centerY);
+        jframe.setVisible(true);
 
-			@Override
-			public void windowLostFocus(WindowEvent arg0) {
-				gamePanel.getGame().windowFocusLost();
-			}
-			
-		});
+        jframe.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent arg0) {
+            }
 
-	}
+            @Override
+            public void windowLostFocus(WindowEvent arg0) {
+                gamePanel.getGame().windowFocusLost();
+            }
+        });
+    }
 
+    public static JFrame getJframe() {
+        return jframe;
+    }
 }

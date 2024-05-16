@@ -56,10 +56,9 @@ public class Game implements Runnable {
 				playing.update();
 				break;
 			case OPTIONS:
-			case QUIT:
-				System.exit(0);
-				break;
+			case QUIT:	
 			default:
+				System.exit(0);
 				break;
 		}
 	}

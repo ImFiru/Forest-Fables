@@ -1,44 +1,88 @@
 package gamestates;
 
-
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import main.Game;
 import ui.MenuButton;
-
-import static main.Game.*;
-import static gamestates.GameState.*;
-import static utilz.Constants.UI.Buttons.*;
+import utilz.LoadSave;
 
 public class Menu extends State implements StateMethods{
 
     private MenuButton[] menuButtons = new MenuButton[3];
 
+    private BufferedImage[] backgroundImages;
+    private int backgroundImageIndex = 0;
+    private int animationTimer = 0;
+    private int animationDelay = 35;
+
+    private BufferedImage logoImage;
+	private int logoX, logoY, logoWidth, logoHeight;
+   
+    private StringBuilder inputBuffer = new StringBuilder();
+
     public Menu(Game game) {
         super(game);
         loadButtons();
-        
+        loadBackground();
+        loadLogo();
+    }
+
+    private void loadLogo() {
+		logoImage = LoadSave.getSpriteAtlas(LoadSave.MENU_LOGO);
+		logoWidth = (int) (logoImage.getWidth() * Game.SCALE / 2.5);
+		logoHeight = (int) (logoImage.getHeight() * Game.SCALE / 2.5);
+		logoX = Game.GAME_WIDTH / 2 - logoWidth / 2;
+		logoY = (int) (30 * Game.SCALE);
+
+	}
+
+    private void loadBackground() {
+        backgroundImages = new BufferedImage[10];
+        BufferedImage spriteAtlas = LoadSave.getSpriteAtlas(LoadSave.MENU_BACKGROUND);
+    
+        for (int i = 0; i < backgroundImages.length; i++) {
+            backgroundImages[i] = spriteAtlas.getSubimage(i * 320, 0, 320, spriteAtlas.getHeight());
+        }
+    }
+
+    private void updateBackgroundImageIndex() {
+        animationTimer++;
+        if (animationTimer >= animationDelay) {
+            backgroundImageIndex = (backgroundImageIndex + 1) % backgroundImages.length;
+            animationTimer = 0;
+        }
     }
 
     private void loadButtons() {
-        menuButtons[0] = new MenuButton(GAME_WIDTH / 2,(int) (50 * SCALE),0, PLAYING);
-        menuButtons[1] = new MenuButton(GAME_WIDTH / 2,(int) (95 * SCALE),1, OPTIONS);
-        menuButtons[2] = new MenuButton(GAME_WIDTH / 2,(int) (140 * SCALE),2, PLAYING);
+        menuButtons[0] = new MenuButton((int) (120 * Game.SCALE), Game.GAME_HEIGHT - 150, 0, GameState.PLAYING);
+		menuButtons[1] = new MenuButton(Game.GAME_WIDTH / 2, Game.GAME_HEIGHT - 150, 1, GameState.OPTIONS);
+		menuButtons[2] = new MenuButton((int) (Game.GAME_WIDTH - 120 * Game.SCALE), Game.GAME_HEIGHT - 150, 2, GameState.QUIT);
+    }
+    
+    @Override
+    public void draw(Graphics g) {
+        g.drawImage(backgroundImages[backgroundImageIndex], 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+        g.drawImage(logoImage, logoX, logoY, logoWidth, logoHeight, null);
+        for (MenuButton menubutton : menuButtons) {
+            menubutton.draw(g);
         }
+    }
 
     @Override
     public void update() {
+        updateBackgroundImageIndex();
         for (MenuButton menubutton : menuButtons) {
             menubutton.update();
         }
     }
 
-    @Override
-    public void draw(Graphics g) {
+    
+    private void resetButtons() {
         for (MenuButton menubutton : menuButtons) {
-            menubutton.draw(g);
+            menubutton.resetBooleans();
         }
     }
 
@@ -66,15 +110,10 @@ public class Menu extends State implements StateMethods{
                     break;
                 }
             }
-            resetButtons();
         }
+        resetButtons();
     }
 
-    private void resetButtons() {
-        for (MenuButton menubutton : menuButtons) {
-            menubutton.resetBooleans();
-        }
-    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -91,8 +130,23 @@ public class Menu extends State implements StateMethods{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            GameState.gamestate = GameState.PLAYING;
+        int keyCode = e.getKeyCode();
+
+        if (keyCode == KeyEvent.VK_ENTER) {
+            String input = inputBuffer.toString().trim();
+            inputBuffer.setLength(0);
+
+            if (input.equalsIgnoreCase("admin")) {
+                System.out.println("Admin panel activated");
+            } else {
+                System.out.println("Invalid input");
+            }
+        } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
+            if (inputBuffer.length() > 0) {
+                inputBuffer.deleteCharAt(inputBuffer.length() - 1);
+            }
+        } else {
+            inputBuffer.append(e.getKeyChar());
         }
     }
 

@@ -140,3 +140,27 @@ Added gamestates to the game. And added 3 buttons to the menu to swich between g
   - KeyboardInputs
 - Main Class:
   - Game
+
+  ## [v0.1.10] - 29/04/2024
+ 
+Added game menus and an animated background for the levels
+
+### Added
+- UI Class:
+  - PauseOverlay
+  - PauseButton
+  - SoundButton
+  - VolumeButton
+  - RrsmButton
+### Changed
+- Entities Class:
+  - Player
+- GameStates Class:
+  - Menu
+  - Playing
+- Levels Class:
+  - Level
+  - LevelManager
+- Utilz Class:
+  - LoadSave
+  - Constants

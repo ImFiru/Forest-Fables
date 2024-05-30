@@ -164,3 +164,34 @@ Added game menus and an animated background for the levels
 - Utilz Class:
   - LoadSave
   - Constants
+
+    ## [v0.1.11] - 29/04/2024
+ 
+Added enemies to the game, cleand up the code and fixed some bugs. Added some overlays and modified a little of the classes
+
+### Added
+- Managers:
+  - EnemyManager
+  - LevelManager
+- Overlays:
+  - GameOverOverlay
+  - PauseOverlay
+  - LevelCompletedOverlay
+### Changed
+- Entities Class:
+  - Player
+  - Enemy
+  - Entitiy
+  - Mushroom
+- GameStates Class:
+  - Menu
+  - Playing
+  - State
+  - StateMethods
+  - GameState
+- Levels Class:
+  - Level
+- Utilz Class:
+  - LoadSave
+  - Constants
+  - HelpMethods

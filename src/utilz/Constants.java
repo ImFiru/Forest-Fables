@@ -4,19 +4,8 @@ import main.Game;
 
 public class Constants {
 
-  public static class Environment {
-    public static final int LAYER_2_WIDTH_DEFAULT = 320;
-    public static final int LAYER_2_HEIGHT_DEFAULT = 180;
-    public static final int LAYER_3_WIDTH_DEFAULT = 320;
-    public static final int LAYER_3_HEIGHT_DEFAULT = 180;
-
-    public static final int LAYER_2_WIDTH = (int) (LAYER_2_WIDTH_DEFAULT * Game.SCALE);
-    public static final int LAYER_2_HEIGHT = (int) (LAYER_2_HEIGHT_DEFAULT * Game.SCALE);
-    public static final int LAYER_3_WIDTH = (int) (LAYER_3_WIDTH_DEFAULT * Game.SCALE);
-    public static final int LAYER_3_HEIGHT = (int) (LAYER_3_HEIGHT_DEFAULT * Game.SCALE);
-    
-  }
-
+  public static final float GRAVITY = 0.035f * Game.SCALE;
+  
   public static class UI{
 
     public static class Buttons {
@@ -45,6 +34,12 @@ public class Constants {
     public static final int DOWN = 1;
     public static final int LEFT = 2;
     public static final int RIGHT = 3;
+  }
+
+  public static class Entities {
+    public static final int PLAYER = 0;
+    public static final int PLAYERCAT = 1;
+    public static final int ENEMY_MUSHROOM = 2;
   }
 
   public static class PlayerConstants {
@@ -97,4 +92,94 @@ public class Constants {
       }
     }
   }
+
+  public static class PlayerCatConstants {
+
+    public static final int IDLE = 0;
+    public static final int WALKING = 1;
+    public static final int RUNNING = 2;
+    public static final int ATTACKING = 3;
+    public static final int JUMPING = 4;
+    public static final int FALLING = 5;
+    public static final int DAMAGE = 6;
+    public static final int DEAD = 7;
+
+    public static int getSpriteAmount(int player_action) {
+      switch (player_action) {
+        case IDLE:
+        case WALKING:
+        case DEAD:
+          return 8;
+        case RUNNING:
+        case JUMPING:
+        case DAMAGE:
+          return 4;
+        case FALLING:
+          return 3;
+        case ATTACKING:
+          return 7;
+        default:
+          return 1;
+      }
+    }
+  }
+
+  public static class EnemyConstants {
+    public static final int MUSHROOM = 1;
+
+    public static final int IDLE = 0;
+    public static final int RUNNING = 1;
+    public static final int ATTACKING = 2;
+    public static final int DAMAGE = 3;
+    public static final int DEAD = 4;
+
+    public static final int MUSHROOM_WIDTH_DEFAULT = 80;
+    public static final int MUSHROOM_HEIGHT_DEFAULT = 64;
+    public static final int MUSHROOM_WIDTH = (int) (MUSHROOM_WIDTH_DEFAULT * Game.SCALE);
+    public static final int MUSHROOM_HEIGHT = (int) (MUSHROOM_HEIGHT_DEFAULT * Game.SCALE);
+
+    public static final int MUSHROOM_DRAWOFFSET_X = (int) (25 * Game.SCALE);
+    public static final int MUSHROOM_DRAWOFFSET_Y = (int) (31 * Game.SCALE);
+
+    public static int getSpriteAmount(int enemy_type, int enemy_state) {
+      switch (enemy_type) {
+        case MUSHROOM: {
+          switch (enemy_state) {
+            case IDLE:
+              return 6;
+            case RUNNING:
+              return 7;
+            case ATTACKING:
+              return 9;
+            case DAMAGE:
+              return 4;
+            case DEAD:
+              return 10;
+          }
+        }
+        default:
+          return 1;
+      }
+    }
+
+    public static int getEnemyMaxHealth(int enemy_type) {
+      switch (enemy_type) {
+        case MUSHROOM:
+          return 10;
+        default:
+          return 1;
+      }
+    }
+
+    public static int getEnemyDamage(int enemy_type) {
+      switch (enemy_type) {
+        case MUSHROOM:
+          return 100;
+        default:
+          return 0;
+      }
+    }
+
+  }
 }
+

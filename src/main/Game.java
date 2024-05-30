@@ -19,7 +19,7 @@ public class Game implements Runnable {
 	private Playing playing;
 
 	public final static int TILES_DEFAULT_SIZE = 24;
-	public final static float SCALE = 2f; 
+	public final static float SCALE = 2f;
 	public final static int TILES_IN_WIDTH = 26;
 	public final static int TILES_IN_HEIGHT = 14;
 	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
@@ -27,12 +27,12 @@ public class Game implements Runnable {
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
 	public Game() {
-
 		initClasses();
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
+		gamePanel.setFocusable(true);
 		gamePanel.requestFocus();
-		
+
 		startGameLoop(); // Alaways last line of the constructor
 	}
 
@@ -47,7 +47,7 @@ public class Game implements Runnable {
 	}
 
 	private void update() {
-		
+
 		switch (GameState.gamestate) {
 			case MENU:
 				menu.update();
@@ -56,7 +56,7 @@ public class Game implements Runnable {
 				playing.update();
 				break;
 			case OPTIONS:
-			case QUIT:	
+			case QUIT:
 			default:
 				System.exit(0);
 				break;
@@ -105,7 +105,7 @@ public class Game implements Runnable {
 				updates++;
 				deltaUpdates--;
 			}
-			
+
 			if (deltaFrames >= 1) {
 				gamePanel.repaint();
 				Toolkit.getDefaultToolkit().sync();
@@ -124,7 +124,7 @@ public class Game implements Runnable {
 	}
 
 	public void windowFocusLost() {
-		if (GameState.gamestate == GameState.PLAYING){
+		if (GameState.gamestate == GameState.PLAYING) {
 			playing.windowFocusLost();
 		}
 	}
@@ -133,8 +133,12 @@ public class Game implements Runnable {
 		return menu;
 	}
 
-    public Playing getPlaying() {
+	public Playing getPlaying() {
 		return playing;
-    }
+	}
+
+	public GameWindow getGameWindow() {
+		return gameWindow;
+	}
 
 }

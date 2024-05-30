@@ -10,8 +10,6 @@ import inputs.MouseInputs;
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
 
-
-
 public class GamePanel extends JPanel {
 
 	private MouseInputs mouseInputs;
